@@ -54,6 +54,7 @@ def artistSearch(token, artistName):
     
     return jsonResult[0]
 
+# This function, as it name suggests, uses the proper endpoint and an artist ID (from Spotify's Dev Portal) to obtain a specific artist's top songs. 
 def artistTopSongs(token, ID):
     # Although this URL does need to have a specific country as an argument (the top streamed tracks in that specific country), because I'm providing an access token to get this data, the country that the user is in (which is me) will take over (hence the US). 
     topTracksEndpoint = f"https://api.spotify.com/v1/artists/{ID}/top-tracks"
@@ -62,6 +63,7 @@ def artistTopSongs(token, ID):
     jsonResult = json.loads(result.content)["tracks"]
     return jsonResult
 
+# Similar to the above function, this function uses the proper endpoint and an artist ID (from Spotify's Dev Portal) to find artists similar to the specified artist.
 def relatedArtists(token, ID):
     relatedEndpoint = f"https://api.spotify.com/v1/artists/{ID}/related-artists"
     headers = obtainAuthHeader(token)
@@ -69,12 +71,13 @@ def relatedArtists(token, ID):
     jsonResult = json.loads(result.content)["artists"]
     return jsonResult
 
+# Prompting the user to input their favorite artist's name and saving it as a String var. This var along with the obtained access token will be used as arguments for the searchArtist() function so that the artist's ID could be obtained for the other functions.
 accessToken = obtainToken()
 name = input("Enter your favorite artist's name: ")
 searchResult = artistSearch(accessToken, name)
 artistID = searchResult["id"]
 
-# Getting the followers/genres of the inputted artist, and then printing it out to the console.
+# Getting the followers/genres of the inputted artist, and then printing it out to the console using a for loop.
 artistFollowers = searchResult["followers"]["total"]
 artistGenres = searchResult["genres"]
 print(f"{searchResult["name"]} currently has {artistFollowers} followers. They cover genres such as: ")
@@ -85,7 +88,7 @@ print()
 # This json object contains lots of tidbits of information about the tracks, so in order to make the returned string a bit more readable, the following code will do so:
 songs = artistTopSongs(accessToken, artistID)
 
-# In this for loop, we are taking the returned json object of songs and enumerating it (make it iterable by giving each track an index). The idx variable gives an index for each top track of the artist. So, the most popular track from that artist in the US will be number 0 (hence why in the print statement idx is incremented by 1).
+# In this for loop, we are taking the returned json object of songs and enumerating it (make it iterable by giving each track an index). The idx variable gives an index for each top track of the artist. So, the most popular track from that artist in the US will be number 0 (hence why in the print statement idx is incremented by 1). Each song json object from songs has keys such as "popularity_score" and "duration_ms", so printing out the respective values of those keys to the console as well.
 print(f"Here are some of {searchResult["name"]}'s top tracks: ")
 for idx, song in enumerate(songs):
     songLength = int(int(song["duration_ms"]) / 1000)
@@ -93,7 +96,7 @@ for idx, song in enumerate(songs):
     print(f"{idx + 1}. {song["name"]}: {songLength} seconds | Popularity score: {songPopularity}")
 print()
 
-# Calling the function above to obtain the json object of artists that are similar to the input artist then printing those artists to the console.
+# Calling the function above to obtain the json object of artists that are similar to the input artist then printing those artists to the console via a for loop.
 similarArtists = relatedArtists(accessToken, artistID)
 print(f"Here are some similar artists: ")
 for idx, artist in enumerate(similarArtists):
