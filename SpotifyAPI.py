@@ -26,7 +26,7 @@ def obtainToken():
     }
     data = {"grant_type": "client_credentials"}
 
-    # Obtaining the token through the post method from requests, then converting it into a json object. 
+    # Obtaining the token through the post method from requests, then converting it into a json object, and then initializing a variable that stores the value belonging to the "access_token" key in the json object.
     result = requests.post(url, headers=headers, data=data)
     jsonResult = json.loads(result.content)
     token = jsonResult["access_token"]
@@ -44,7 +44,7 @@ def artistSearch(token, artistName):
     # A python f string, as show below, allows you to add variables, comma separators, put dates, etc. This variable query, uses the input parameter artistName to make a query to the web API of what artist's data you want to see. The format of the string is obviously a bit weird, but this is how queries are made (for instance, the argument "limit=1" quite literally limits your search down to the most popular artist, since there could be many artists with the same name).
     query = f"q={artistName}&type=artist&limit=1"
     queryURL = searchEndpoint + "?" + query
-    # Using the get method from requests to obtain that artist's information, then parsing it into a JSON object. Here, the parts of the JSON object that we're looking for are the contents of "artists" and "items" (since the whole JSON object has many different pieces of information about the artists such as followers, etc). The reason being that if the length of the string returned is 0, then that artist does not exist. 
+    # Using the get method from requests to obtain that artist's information, then parsing it into a json object. Here, the parts of the JSON object that we're looking for are the contents of "artists" and "items" (since the whole json object has many different pieces of information about the artists such as followers, etc). The reason being that if the length of the string returned is 0, then that artist does not exist. 
     result = requests.get(queryURL, headers=headers)
     jsonResult = json.loads(result.content)["artists"]["items"]
 
@@ -82,10 +82,10 @@ for genre in artistGenres:
     print(f"{genre}")
 print()
 
-# This JSON object contains lots of tidbits of information about the tracks, so in order to make the returned string a bit more readable, the following code will do so:
+# This json object contains lots of tidbits of information about the tracks, so in order to make the returned string a bit more readable, the following code will do so:
 songs = artistTopSongs(accessToken, artistID)
 
-# In this for loop, we are taking the returned JSON object of songs and enumerating it (make it iterable by giving each track an index). The idx variable gives an index for each top track of the artist. So, the most popular track from that artist in the US will be number 0 (hence why in the print statement idx is incremented by 1).
+# In this for loop, we are taking the returned json object of songs and enumerating it (make it iterable by giving each track an index). The idx variable gives an index for each top track of the artist. So, the most popular track from that artist in the US will be number 0 (hence why in the print statement idx is incremented by 1).
 print(f"Here are some of {searchResult["name"]}'s top tracks: ")
 for idx, song in enumerate(songs):
     songLength = int(int(song["duration_ms"]) / 1000)
@@ -93,7 +93,7 @@ for idx, song in enumerate(songs):
     print(f"{idx + 1}. {song["name"]}: {songLength} seconds | Popularity score: {songPopularity}")
 print()
 
-# Calling the function above to obtain the JSON object of artists that are similar to the input artist then printing those artists to the console.
+# Calling the function above to obtain the json object of artists that are similar to the input artist then printing those artists to the console.
 similarArtists = relatedArtists(accessToken, artistID)
 print(f"Here are some similar artists: ")
 for idx, artist in enumerate(similarArtists):
