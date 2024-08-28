@@ -8,6 +8,7 @@ import json
 # Loading the contents of the .env file (the client information).
 dotenv.load_dotenv()
 
+# Obtaining the values of the variables saved in the .env environment.
 clientID = os.getenv("CLIENT_ID")
 clientSecret = os.getenv("CLIENT_SECRET")
 
@@ -36,6 +37,7 @@ def obtainToken():
 def obtainAuthHeader(token):
     return {"Authorization": "Bearer " + token}
 
+# This function, as it name suggests, uses the proper endpoint (from Spotify's Dev Portal) to search for a specific artist and acquire data about their discography. 
 def artistSearch(token, artistName):
     # Obtained from Spotify Developer Portal in Web API page under the "Search" category. 
     searchEndpoint = "https://api.spotify.com/v1/search"
@@ -54,7 +56,7 @@ def artistSearch(token, artistName):
     
     return jsonResult[0]
 
-# This function, as it name suggests, uses the proper endpoint and an artist ID (from Spotify's Dev Portal) to obtain a specific artist's top songs. 
+# Similar to the above function, this function uses the proper endpoint and an artist ID (from Spotify's Dev Portal) to obtain a specific artist's top songs. 
 def artistTopSongs(token, ID):
     # Although this URL does need to have a specific country as an argument (the top streamed tracks in that specific country), because I'm providing an access token to get this data, the country that the user is in (which is me) will take over (hence the US). 
     topTracksEndpoint = f"https://api.spotify.com/v1/artists/{ID}/top-tracks"
@@ -63,7 +65,7 @@ def artistTopSongs(token, ID):
     jsonResult = json.loads(result.content)["tracks"]
     return jsonResult
 
-# Similar to the above function, this function uses the proper endpoint and an artist ID (from Spotify's Dev Portal) to find artists similar to the specified artist.
+# This function, like the previous ones, uses the proper endpoint and an artist ID (from Spotify's Dev Portal) to find artists similar to the specified artist.
 def relatedArtists(token, ID):
     relatedEndpoint = f"https://api.spotify.com/v1/artists/{ID}/related-artists"
     headers = obtainAuthHeader(token)
