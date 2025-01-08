@@ -1,0 +1,91 @@
+/* Customizing the page itself (things such as background of entire page, font family, margins, etc. */
+body {
+    margin: 20;
+    font-family: Verdana;
+    background-color: cornflowerblue;
+}
+
+/* This is the space on the page in which the accordions are going to belong to, here we're customizing it to hold the buttons as one big column. */
+.accordion-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the column */
+    width: 100%; /* Full width of the page */
+}
+/* Customizing each accordion (AKA collapsible). */
+.accordion {
+    cursor: pointer; 
+    display: block;
+    height: 40px; 
+    width: 97%;
+    text-align: left;
+    background-color: mediumturquoise;
+    font-family: Verdana;
+    font-weight: bold;
+    color: whitesmoke;
+    margin-bottom: 5px; 
+    border: none;
+}
+
+/* This is a pseudo-class of accordion, and it ensures that when the user hovers over the accordion button, it changes color. */
+.accordion:hover {
+    background-color: turquoise
+}
+
+/* This code is to make an accordion (AKA collapsible) function as intended (meaning that only when clicked does the content appear). It also customizes the content. */
+.content {
+    display: none;  /* This ensures the content is hidden initially. */
+    overflow: hidden;
+    margin: 10px;
+}
+
+/* Customizing the search bar. */
+.search {
+    height: 35px;
+    width: 250px;
+    font-family: Verdana;
+    border: none;
+}
+
+/* Doing the same thing above and changing the color of the search bar when the user hovers over it. */
+.search:hover {
+    background-color: lightgray;
+}
+
+/* Customizing the submit button. */
+.submit {
+    height: 40px;
+    width: 75px;
+    background-color:mediumturquoise;
+    border: none;
+    font-family: Verdana;
+    font-weight: bold;
+    color: whitesmoke;
+}
+
+/* Doing the same thing above and changing the color of the "Enter" button when the user hovers over it. */
+.submit:hover {
+    background-color: turquoise;
+}
+/* Customizing the horizontal lines on the page. */
+.horizontal {
+    height: 5px;
+    width: 98%;
+    background-color: lightskyblue;
+    border: none;
+}
+
+/* Customizing the subheadings. */
+.subheadings {
+    margin: 15px;
+    color: whitesmoke;
+    font-style: italic;
+    font-weight: bold;
+}
+
+/* Customizing the text that's generated. */
+.text {
+    margin: 15px;
+    color: whitesmoke;
+    font-family: Verdana;
+}

@@ -1,0 +1,20 @@
+<!-- This is a basic HTML file template that can be used to generate a web page. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatable" content="ie-edge">
+
+    <!-- The url_for function allows us to link the main.css file into this file, as you can see the arguments passed in the function are the main directory (Static), and the file name (since there's a subdirectory, have to specify that main.css is in CSS). Also, make sure to write the names of the directories in lower case. -->
+    <!-- These types of Jinja brackets will take your result and print it out as a String. -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"> 
+
+    <!-- Jinja2 syntax, which is the template engine that Flask uses. Basically this creates a block where you can insert code for other pages into this template. These brackets are for the functional parts of a program, such as for-loops, if-else statements, etc. -->
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <!-- Created a block for the body. -->
+    {% block body %}{% endblock %} 
+</body>
+</html>
