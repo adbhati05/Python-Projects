@@ -12,6 +12,7 @@ body {
     align-items: center; /* Center the column */
     width: 100%; /* Full width of the page */
 }
+
 /* Customizing each accordion (AKA collapsible). */
 .accordion {
     cursor: pointer; 
@@ -67,6 +68,7 @@ body {
 .submit:hover {
     background-color: turquoise;
 }
+
 /* Customizing the horizontal lines on the page. */
 .horizontal {
     height: 5px;
